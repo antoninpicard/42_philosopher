@@ -6,7 +6,7 @@
 /*   By: anpicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:19:39 by anpicard          #+#    #+#             */
-/*   Updated: 2025/05/21 08:18:14 by anpicard         ###   ########.fr       */
+/*   Updated: 2025/07/02 08:30:43 by anpicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define PHILO_H
 
 # include <pthread.h>
+
+typedef struct s_fork
+{
+	int				id;
+	pthread_mutex_t	mutex;
+}					t_fork;
 
 typedef struct s_data
 {
@@ -24,8 +30,7 @@ typedef struct s_data
 	int				nb_meals;
 	long long		start_time;
 	int				someone_died;
-	int				*forks;
-	pthread_mutex_t	forks_mutex;
+	t_fork			*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	died;
 	struct s_philo	*philos;
@@ -56,7 +61,8 @@ void				*philo_routine(void *arg);
 void				action(t_philo *philo);
 
 /* Fork utilities */
-void				take_single_fork(t_philo *philo, int fork_id);
+void				take_single_fork(t_philo *philo, t_fork *fork);
+void				release_single_fork(t_fork *fork);
 
 /* Monitor functions */
 void				*monitor(void *arg);

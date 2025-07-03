@@ -14,22 +14,26 @@ SRCS = philo_bonus.c \
     	philo_monitor_utils_bonus.c \
     	ft_atoi.c
 
-OBJS = $(SRCS:.c=.o)
+OBJ_DIR = obj
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-all: $(NAME)
+all: dir $(NAME)
+
+dir:
+	mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
-%.o: %.c
+$(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all dir clean fclean re

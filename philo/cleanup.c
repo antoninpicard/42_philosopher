@@ -17,22 +17,23 @@ void	cleanup_resources(t_data *data)
 {
 	int	i;
 
-	if (data->forks)
+	i = 0;
+	while (i < data->nb_philo)
 	{
-		free(data->forks);
+		pthread_mutex_destroy(&data->philos[i].last_meals);
+		pthread_mutex_destroy(&data->philos[i].meal);
+		i++;
 	}
-	pthread_mutex_destroy(&data->forks_mutex);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_destroy(&data->forks[i].mutex);
+		i++;
+	}
 	pthread_mutex_destroy(&data->print_mutex);
 	pthread_mutex_destroy(&data->died);
 	if (data->philos)
-	{
-		i = 0;
-		while (i < data->nb_philo)
-		{
-			pthread_mutex_destroy(&data->philos[i].last_meals);
-			pthread_mutex_destroy(&data->philos[i].meal);
-			i++;
-		}
 		free(data->philos);
-	}
+	if (data->forks)
+		free(data->forks);
 }

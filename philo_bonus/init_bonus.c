@@ -6,7 +6,7 @@
 /*   By: anpicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 08:07:30 by anpicard          #+#    #+#             */
-/*   Updated: 2025/06/30 11:15:28 by anpicard         ###   ########.fr       */
+/*   Updated: 2025/07/02 08:18:06 by anpicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,34 @@ int	init_semaphores(t_data *data)
 		return (0);
 	data->print_sem = sem_open(SEM_PRINT, O_CREAT, 0644, 1);
 	if (data->print_sem == SEM_FAILED)
+	{
+		sem_close(data->forks);
 		return (0);
+	}
 	data->died_sem = sem_open(SEM_DIED, O_CREAT, 0644, 1);
 	if (data->died_sem == SEM_FAILED)
+	{
+		sem_close(data->forks);
+		sem_close(data->print_sem);
 		return (0);
+	}
 	data->meal_sem = sem_open(SEM_MEAL, O_CREAT, 0644, 1);
 	if (data->meal_sem == SEM_FAILED)
+	{
+		sem_close(data->forks);
+		sem_close(data->print_sem);
+		sem_close(data->died_sem);
 		return (0);
+	}
 	data->last_meal_sem = sem_open(SEM_LAST_MEAL, O_CREAT, 0644, 1);
 	if (data->last_meal_sem == SEM_FAILED)
+	{
+		sem_close(data->forks);
+		sem_close(data->print_sem);
+		sem_close(data->died_sem);
+		sem_close(data->meal_sem);
 		return (0);
+	}
 	return (1);
 }
 

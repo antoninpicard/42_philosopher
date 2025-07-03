@@ -15,18 +15,18 @@
 
 static void	take_forks(t_philo *philo)
 {
-	int	first_fork;
-	int	second_fork;
+	t_fork	*first_fork;
+	t_fork	*second_fork;
 
 	if (philo->id % 2 == 0)
 	{
-		first_fork = philo->right_fork_id;
-		second_fork = philo->left_fork_id;
+		first_fork = &philo->data->forks[philo->left_fork_id];
+		second_fork = &philo->data->forks[philo->right_fork_id];
 	}
 	else
 	{
-		first_fork = philo->left_fork_id;
-		second_fork = philo->right_fork_id;
+		first_fork = &philo->data->forks[philo->right_fork_id];
+		second_fork = &philo->data->forks[philo->left_fork_id];
 	}
 	take_single_fork(philo, first_fork);
 	take_single_fork(philo, second_fork);
@@ -34,10 +34,8 @@ static void	take_forks(t_philo *philo)
 
 static void	release_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->forks_mutex);
-	philo->data->forks[philo->left_fork_id] = 0;
-	philo->data->forks[philo->right_fork_id] = 0;
-	pthread_mutex_unlock(&philo->data->forks_mutex);
+	release_single_fork(&philo->data->forks[philo->left_fork_id]);
+	release_single_fork(&philo->data->forks[philo->right_fork_id]);
 }
 
 static void	philo_eat(t_philo *philo)
