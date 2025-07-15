@@ -8,15 +8,15 @@ OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 DEPS = philo.h
 
-all: dir $(NAME)
+all: $(NAME)
 
-dir:
-	mkdir -p $(OBJ_DIR)
+$(OBJ_DIR):
+	mkdir -p $@
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o philo $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
-$(OBJ_DIR)/%.o: %.c $(DEPS)
+$(OBJ_DIR)/%.o: %.c $(DEPS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
@@ -30,4 +30,4 @@ re: fclean all
 bonus:
 	@echo "Run make in ./philo_bonus for the bonus version."
 
-.PHONY: all dir clean fclean re bonus
+.PHONY: all clean fclean re bonus

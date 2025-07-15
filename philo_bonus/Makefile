@@ -16,16 +16,17 @@ SRCS = philo_bonus.c \
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+DEPS = philo_bonus.h
 
-all: dir $(NAME)
+all: $(NAME)
 
-dir:
-	mkdir -p $(OBJ_DIR)
+$(OBJ_DIR):
+	mkdir -p $@
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: %.c $(DEPS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
@@ -36,4 +37,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all dir clean fclean re
+.PHONY: all clean fclean re
