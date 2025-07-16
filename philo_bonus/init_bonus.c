@@ -68,10 +68,17 @@ int	init_philosophers(t_data *data)
 		return (0);
 	data->philos = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philos)
+	{
+		cleanup_resources(data);
 		return (0);
+	}
 	data->pids = malloc(sizeof(pid_t) * data->nb_philo);
 	if (!data->pids)
+	{
+		free(data->philos);
+		cleanup_resources(data);
 		return (0);
+	}
 	i = 0;
 	while (i < data->nb_philo)
 	{

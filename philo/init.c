@@ -38,15 +38,29 @@ static int	init_forks(t_data *data)
 
 int	init_mutexes(t_data *data)
 {
+	int	i;
+
 	if (!init_forks(data))
 		return (0);
 	if (pthread_mutex_init(&data->print_mutex, NULL))
 	{
+		i = 0;
+		while (i < data->nb_philo)
+		{
+			pthread_mutex_destroy(&data->forks[i].mutex);
+			i++;
+		}
 		free(data->forks);
 		return (0);
 	}
 	if (pthread_mutex_init(&data->died, NULL))
 	{
+		i = 0;
+		while (i < data->nb_philo)
+		{
+			pthread_mutex_destroy(&data->forks[i].mutex);
+			i++;
+		}
 		free(data->forks);
 		pthread_mutex_destroy(&data->print_mutex);
 		return (0);
