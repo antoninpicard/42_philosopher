@@ -6,7 +6,7 @@
 /*   By: anpicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 10:56:59 by anpicard          #+#    #+#             */
-/*   Updated: 2025/06/30 11:06:54 by anpicard         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:51:28 by anpicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,14 @@ int	init_mutexes(t_data *data)
 static void	cleanup_init_failure(t_data *data, int philo_index)
 {
 	int	j;
-
-	// Destroy already initialized fork mutexes
 	j = 0;
 	while (j < data->nb_philo)
 	{
 		pthread_mutex_destroy(&data->forks[j].mutex);
 		j++;
 	}
-
-	// Destroy global mutexes
 	pthread_mutex_destroy(&data->print_mutex);
 	pthread_mutex_destroy(&data->died);
-
-	// Destroy philosopher mutexes that were already initialized
 	j = 0;
 	while (j < philo_index)
 	{
@@ -92,8 +86,6 @@ static void	cleanup_init_failure(t_data *data, int philo_index)
 		pthread_mutex_destroy(&data->philos[j].meal);
 		j++;
 	}
-
-	// Free allocated memory
 	free(data->forks);
 	free(data->philos);
 }

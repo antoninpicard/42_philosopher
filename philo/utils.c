@@ -29,7 +29,7 @@ void	my_sleep(time_t time, t_data *data)
 	wait = timestamp() + time;
 	while (timestamp() < wait)
 	{
-		if (is_died(data->philos))
+		if (check_death_status(data))
 			break ;
 		usleep(100);
 	}
