@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork_utils.c                                       :+:      :+:    :+:   */
+/*   thinking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anpicard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anpicard <marvin@42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/28 10:25:00 by anpicard          #+#    #+#             */
-/*   Updated: 2025/07/02 08:31:00 by anpicard         ###   ########.fr       */
+/*   Created: 2025/04/19 07:50:52 by anpicard          #+#    #+#             */
+/*   Updated: 2025/06/29 17:46:59 by anpicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
-#include <unistd.h>
+#include "../includes/philo.h"
 
-void	take_single_fork(t_philo *philo, t_fork *fork)
+void	sleeping(t_philo *philo)
 {
-	pthread_mutex_lock(&fork->mutex);
-	print_mutex("%lld %d has taken a fork\n", philo);
+	print_status(philo, "is sleeping");
+	percise_sleep(philo, philo->table->tt_sleep, 1);
 }
 
-void	release_single_fork(t_fork *fork)
+void	thinking(t_philo *philo)
 {
-	pthread_mutex_unlock(&fork->mutex);
+	print_status(philo, "is thinking");
+	usleep(100);
 }

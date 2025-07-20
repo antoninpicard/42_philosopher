@@ -1,39 +1,32 @@
 NAME = philo_bonus
-
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g3
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
-SRCS = philo_bonus.c \
-    	init_bonus.c \
-    	process_bonus.c \
-    	routine_bonus.c \
-    	monitor_bonus.c \
-    	utils_bonus.c \
-    	cleanup_bonus.c \
-    	philo_process_bonus.c \
-    	philo_monitor_utils_bonus.c \
-    	ft_atoi.c
+SRC = ./sources_bonus/main_bonus.c ./sources_bonus/ft_atoi_bonus.c ./sources_bonus/utils.c\
+	./sources_bonus/philo_routine.c ./sources_bonus/simulation_bonus.c
 
-OBJ_DIR = obj
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-DEPS = philo_bonus.h
+OBJDIR = obj
+OBJ = $(SRC:./sources_bonus/%.c=$(OBJDIR)/%.o)
+
 
 all: $(NAME)
 
-$(OBJ_DIR):
-	mkdir -p $@
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "philo_bonus compiled successfully"
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
-
-$(OBJ_DIR)/%.o: %.c $(DEPS) | $(OBJ_DIR)
+$(OBJDIR)/%.o: ./sources_bonus/%.c ./includes_bonus/philo_bonus.h | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
 clean:
-	rm -rf $(OBJ_DIR)
+	$(RM) $(OBJDIR)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

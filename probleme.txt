@@ -1,1 +1,0 @@
- philo git:(main) ✗ ./philo 3 610 200 150 meurt

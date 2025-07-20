@@ -1,29 +1,33 @@
 NAME = philo
-
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g3
+CFLAGS = -Wall -Wextra -Werror -pthread
+RM = rm -rf
 
-SRC = philo.c init.c threads.c utils.c monitor.c routine.c cleanup.c fork_utils.c monitor_utils.c ft_atoi.c
-OBJ_DIR = obj
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-DEPS = philo.h
+SRC = ./sources/main.c ./sources/ft_atoi.c ./sources/init_table.c\
+	./sources/simulation.c ./sources/thinking.c ./sources/forks.c\
+	./sources/print_status.c ./sources/eating.c ./sources/utils.c
+
+OBJDIR = obj
+OBJ = $(SRC:./sources/%.c=$(OBJDIR)/%.o)
+
 
 all: $(NAME)
 
-$(OBJ_DIR):
-	mkdir -p $@
-
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "philo compiled successfully"
 
-$(OBJ_DIR)/%.o: %.c $(DEPS) | $(OBJ_DIR)
+$(OBJDIR)/%.o: ./sources/%.c ./includes/philo.h | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
 clean:
-	rm -rf $(OBJ_DIR)
+	$(RM) $(OBJDIR)
 
 fclean: clean
-	@rm -f philo
+	$(RM) $(NAME)
 
 re: fclean all
 
