@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/philo_bonus.h"
+#include "../includes/philo_bonus.h"
 
 static void	kill_all_processes(t_table *table)
 {

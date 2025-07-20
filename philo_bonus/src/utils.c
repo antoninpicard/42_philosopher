@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/philo_bonus.h"
+#include "../includes/philo_bonus.h"
 
 long long	get_time_ms(void)
 {

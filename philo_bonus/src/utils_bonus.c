@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/philo_bonus.h"
+#include "../includes/philo_bonus.h"
 
 int	init_table(int ac, char **av, t_table *table)
 {

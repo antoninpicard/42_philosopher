@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/philo_bonus.h"
+#include "../includes/philo_bonus.h"
 
 void	print_status_bonus(t_philo *philo, char *status)
 {

@@ -3,20 +3,31 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
-SRC = ./sources_bonus/main_bonus.c ./sources_bonus/ft_atoi_bonus.c ./sources_bonus/utils.c\
-	./sources_bonus/philo_routine.c ./sources_bonus/simulation_bonus.c
+SRC = ./src/main_bonus.c ./src/ft_atoi_bonus.c ./src/utils.c\
+	./src/philo_routine.c ./src/simulation_bonus.c
 
 OBJDIR = obj
-OBJ = $(SRC:./sources_bonus/%.c=$(OBJDIR)/%.o)
+OBJ = $(SRC:./src/%.c=$(OBJDIR)/%.o)
 
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	@echo "philo_bonus compiled successfully"
+	@echo "     _________"
+	@echo "    / ======= \\"
+	@echo "   / __________\\"
+	@echo "  | ___________ |"
+	@echo "  | | -       | |"
+	@echo "  | |         | |"
+	@echo "  | |_________| |________________________"
+	@echo "  \\=____________/           anpicard    )"
+	@echo "  / \"\"\"\"\"\"\"\"\"\"\" \\                      )"
+	@echo " / ::::::::::::: \\                  =D-'"
+	@echo "(_________________)"
+	@echo "\033[32mphilo_bonus compiled successfully\033[0m"
 
-$(OBJDIR)/%.o: ./sources_bonus/%.c ./includes_bonus/philo_bonus.h | $(OBJDIR)
+$(OBJDIR)/%.o: ./src/%.c ./includes/philo_bonus.h | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
